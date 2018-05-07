@@ -13,7 +13,7 @@ namespace EIS.ConsoleUI
         static void Main(string[] args)
         {
             RoleBs R = new RoleBs();
-            R.Insert(new Role() { RoleName = "User", RoleCode = "U" });
+            //R.Insert(new Role() { RoleName = "User", RoleCode = "U" });
         }
     }
 }

@@ -51,7 +51,7 @@ namespace EIS.API.Controllers
         {
             foreach (var error in employeeObjBs.Errors)
             {
-                ModelState.AddModelError("", error);
+                ModelState.AddModelError("", error);  //use ModelState to cache errors
             }
             return BadRequest(ModelState);
         }

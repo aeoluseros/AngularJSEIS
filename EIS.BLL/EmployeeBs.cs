@@ -76,12 +76,13 @@ namespace EIS.BLL
                              "Password : " + emp.Password + "\n" +
                              "Login Here : http://localhost:49971/EIS.html#/Login" + "\n" +
                              "Regards," + "\n" +
-                             "www.ManzoorTheTrainer.com";
+                             "https://bootsnipp.com/";
                 Utility.SendEmail(emp.Email, subject, body);
             }
             return emp;
         }
 
+        //the business rule of insert and update should be different. so I split them into two methods.
         public bool IsValidOnInsert(Employee emp)
         {
             EmployeeBs employeeObjBs = new EmployeeBs();

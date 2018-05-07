@@ -1,0 +1,81 @@
+﻿
+<!--disable javascript validation like type=email by novalidate.-->
+<form name="createEmployeeForm" novalidate>  
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Create Employee Profile</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Employee ID *</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" ng-model="Emp.EmployeeId" name="EmployeeId" value="" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Email *</label>
+                    <div class="col-md-4">
+                        <input type="email" class="form-control" ng-model="Emp.Email" name="Email" value="" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-6">
+                        <input type="submit" ng-click="CreateEmployee(Emp, createEmployeeForm.$valid)" class="btn btn-primary btn-lg" value="Create" />
+                    </div>
+                </div>
+            </div>
+            <div>
+                <ul>
+                    <li class="alert alert-danger" ng-if="createEmployeeForm.$submitted && createEmployeeForm.EmployeeId.$invalid"> Employee ID is required</li>
+                    <li class="alert alert-danger" ng-if="createEmployeeForm.$submitted && createEmployeeForm.Email.$error.required"> Email is required</li>
+                    <li class="alert alert-danger" ng-if="createEmployeeForm.$submitted && createEmployeeForm.Email.$error.email"> Email is invalid</li>
+                </ul>
+                <ul ng-repeat="item in serverErrorMsgs">
+                    <li><div class="alert alert-danger">{{item[0]}}</div></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="alert" class="alert alert-success" ng-show="Flg">
+    {{Msg}}
+</div>
+
+<div class="well">
+    <input type="text" class="form-control" ng-model="search" placeholder="Type In To Search Employee" />
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Profile List</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th ng-click="Sort('EmployeeId')"><a>EmployeeId</a></th>
+                    <th ng-click="Sort('Email')"><a>Email</a></th>
+                    <th ng-click="Sort('FirstName')"><a>Name</a></th>
+                    <th ng-click="Sort('Contact')"><a>Contact</a></th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--<tr class="info" ng-repeat="emp in Emps | filter: search | orderBy: Key: AscOrDesc">-->
+                <tr class="info" dir-paginate="emp in Emps | filter: search | orderBy: Key: AscOrDesc | itemsPerPage: 20">
+                    <td>{{emp.EmployeeId}}</td>
+                    <td>{{emp.Email}}</td>
+                    <td>{{emp.FirstName}} {{emp.LastName}}</td>
+                    <td>{{emp.Contact}}</td>
+                    <td ng-click="DeleteEmployeeById(emp)"><a><span class="glyphicon glyphicon-minus-sign"></span></a></td>
+                </tr>
+            </tbody>
+        </table> 
+        <dir-pagination-controls max-size="3" direction-links="true" boundary-like="true">
+        </dir-pagination-controls>
+    </div>
+</div>
+
+
