@@ -10,7 +10,7 @@ appEIS.config(function ($routeProvider) {
     $routeProvider.when('/Login', { templateUrl: 'Common/Login/Login.html', controller: 'loginController'});
     $routeProvider.when('/RecoverPassword', { templateUrl: 'Common/RecoverPassword/RecoverPassword.html', controller: 'recoverPasswordController'});
     $routeProvider.when('/EmployeeManagement', { templateUrl: 'Employee/EmployeeManagement/EmployeeMgmt.html', controller: 'employeeMgmtController'});
-    $routeProvider.when('/EmployeeProfile/', { templateUrl: 'Employee/EmployeeUpdate/EmployeeUpdate.html', controller: 'employeeUpdateController'});
+    $routeProvider.when('/EmployeeProfile/:EmployeeId?', { templateUrl: 'Employee/EmployeeUpdate/EmployeeUpdate.html', controller: 'employeeUpdateController'});
     $routeProvider.when('/Logout', { });
     $routeProvider.otherwise({redirectTo: '/Home'});
 });

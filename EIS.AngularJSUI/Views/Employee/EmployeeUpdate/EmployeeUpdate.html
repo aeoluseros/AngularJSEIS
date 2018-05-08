@@ -1,1 +1,122 @@
-﻿EmployeeUpdate - {{msg}}
+﻿<form name="updateEmployeeForm">
+    <div id="profilePanel" class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Profile Details</h3>
+        </div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#Personal" data-toggle="tab" aria-expanded="false">Personal Detail</a></li>
+                <li class=""><a href="#Professional" data-toggle="tab" aria-expanded="false">Professional Detail</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div id="Personal" class="tab-pane fade active in">
+                    <div class="well">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Employee Id</label>
+                                <div class="col-md-4">
+                                    <input type="text" ng-disabled="true" class="form-control" ng-model="Emp.EmployeeId" name="EmployeeId" value="" required />
+                                </div>
+                                <label class="control-label col-md-2">Email</label>
+                                <div class="col-md-4">
+                                    <input type="email" ng-disabled="true" class="form-control" ng-model="Emp.Email" value="" name="Email" required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">First Name</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Emp.FirstName" name="FirstName" value="" required />
+                                </div>
+                                <label class="control-label col-md-2">Last Name</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Emp.LastName" value="" name="LastName" required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Gender *</label>
+                                <div class="col-md-4">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="Gender" id="" ng-model="Emp.Gender" value="Male" required checked="">
+                                            Male
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="Gender" id="" ng-model="Emp.Gender" value="Female" required>
+                                            Female
+                                        </label>
+                                    </div>
+                                </div>
+                                <label class="control-label col-md-2">Contact No *</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Emp.Contact" value="" name="Contact" required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Address *</label>
+                                <div class="col-md-10">
+                                    <textarea type="text" class="form-control" ng-model="Emp.Address" name="Address" value="" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Professional" class="tab-pane fade">
+                    <div class="well">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Date Of Joining</label>
+                                <div class="col-md-4">
+                                    <input type="date" class="form-control" ng-model="Emp.DOJ" name="DOJ" value="" />
+                                </div>
+                                <label class="control-label col-md-2">Designation</label>
+                                <div class="col-md-4">
+                                    <select class="form-control" ng-model="Emp.Designation" name="Designation" id="">
+                                        <option value="1">Software Trainee</option>
+                                        <option value="2">Software Engineer</option>
+                                        <option value="3">Sr. Software Engineer</option>
+                                        <option value="4">Team Lead</option>
+                                        <option value="5">Project Manager</option>
+                                        <option value="6">Others</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Total Exp</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Emp.TotalExp" value="" name="TotalExp" />
+                                </div>
+                                <label class="control-label col-md-2">Relevant Exp</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Emp.RelevantExp" name="RelevantExp" value="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Bank Name</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Emp.BankName" name="BankName" value="" />
+                                </div>
+                                <label class="control-label col-md-2">IFSC Code</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Emp.IFSCCode" value="" name="IFSCCode" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">A/C No</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Emp.AcNo" name="AcNo" value="" />
+                                </div>
+                                <label class="control-label col-md-2">PAN</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Emp.PAN" value="" name="PAN" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+
+            </div>
+        </div>
+    </div>
+</form>
