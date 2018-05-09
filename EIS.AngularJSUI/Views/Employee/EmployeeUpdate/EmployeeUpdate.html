@@ -1,4 +1,8 @@
-﻿<form name="updateEmployeeForm">
+﻿<div ng-show="Emp==null">
+    <h2>Record Does Not Exist</h2>
+    <br />
+</div>
+<form name="updateEmployeeForm" novalidaete ng-show="Emp!=null">
     <div id="profilePanel" class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">Profile Details</h3>
@@ -7,6 +11,7 @@
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#Personal" data-toggle="tab" aria-expanded="false">Personal Detail</a></li>
                 <li class=""><a href="#Professional" data-toggle="tab" aria-expanded="false">Professional Detail</a></li>
+                <li class=""><a href="#Pic" data-toggle="tab" aria-expanded="true">Profile Pic</a></li>
             </ul>
             <div id="myTabContent" class="tab-content">
                 <div id="Personal" class="tab-pane fade active in">
@@ -113,10 +118,41 @@
                         </div>
                     </div>
                 </div>
+                <div class="tab-pane fade " id="Pic">
+                    <div class="well">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+
+                                <div class="col-md-offset-0 col-md-4">
+                                    <img src="data:image/jpeg;base64,{{image}}" height="186" width="186">
+                                    <input type="file" class="form-control" file-model="myFile" />
+                                    <input type="button" class="btn btn-primary" ng-click="UploadFile()" value="Save" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
-
+                <div class="col-md-offset-10">
+                    <input type="submit" value="Save" ng-click="UpdateEmployee(Emp,updateEmployeeForm.$valid)" class="btn btn-primary btn-lg" />
+                    <input type="button" value="Cancel" class="btn btn-primary btn-lg" />
+                </div>
             </div>
+        </div>
+        <div>
+            <ul>
+                <li class="alert alert-danger" ng-if="updateEmployeeForm.$submitted && updateEmployeeForm.FirstName.$error.required"> First Name is required</li>
+                <li class="alert alert-danger" ng-if="updateEmployeeForm.$submitted && updateEmployeeForm.LastName.$error.required"> Last Name is required</li>
+                <li class="alert alert-danger" ng-if="updateEmployeeForm.$submitted && updateEmployeeForm.Gender.$error.required"> Gender is required</li>
+                <li class="alert alert-danger" ng-if="updateEmployeeForm.$submitted && updateEmployeeForm.Contact.$error.required"> Contact No. is required</li>
+                <li class="alert alert-danger" ng-if="updateEmployeeForm.$submitted && updateEmployeeForm.Address.$error.required"> Address is required</li>
+            </ul>
+            <ul ng-repeat="item in serverErrorMsgs">
+                <li><div class="alert alert-danger">{{item[0]}}</div></li>
+            </ul>
         </div>
     </div>
 </form>
+

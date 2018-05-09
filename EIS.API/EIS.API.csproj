@@ -92,6 +92,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Files\ProfilePics\anonymous.jpg" />
+    <Content Include="Files\ProfilePics\E0.jpeg" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>

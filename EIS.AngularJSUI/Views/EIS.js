@@ -15,6 +15,27 @@ appEIS.config(function ($routeProvider) {
     $routeProvider.otherwise({redirectTo: '/Home'});
 });
 
+
+appEIS.directive('fileModel', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+
+            element.bind('change', function () {
+                scope.$apply(function () {
+                    modelSetter(scope, element[0].files[0]);  //read the first file
+                });
+            });
+        }
+    };
+});
+
+
+
+
+
 appEIS.factory("utilityService", function ($http) {
     utilityObj = {};
     utilityObj.randomPassword = function () {
@@ -27,6 +48,36 @@ appEIS.factory("utilityService", function ($http) {
         })
     }
 
+    utilityObj.uploadFile = function (file, uploadUrl, eid) {
+        var fd = new FormData();
+        fd.append('file', file);
+
+        var Img;
+        Img = $http({
+            method: 'Post',
+            url: uploadUrl + eid,
+            data: fd,     //will be saved in HttpContext.Current.Request;
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }  //remember the Content-Type should be undefined
+        }).then(function (response) {
+            return response.data;
+        }, function (error) { 
+            return error.data;
+        });
+
+        return Img;
+    }
+
+    utilityObj.getFile = function (getFileUrl, eid) {
+        var Emps;
+
+        Emps = $http({ method: 'Get', url: getFileUrl, params: { Id: eid } }).
+            then(function (response) {
+                return response.data;
+            });
+
+        return Emps;
+    };
 
     return utilityObj;
 })

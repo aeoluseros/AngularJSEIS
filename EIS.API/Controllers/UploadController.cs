@@ -14,7 +14,6 @@ namespace EIS.API.Controllers
     [EnableCors("*", "*", "*")]
     public class UploadController : ApiController
     {
-
         public HttpResponseMessage Post(string Id)
         {
             HttpResponseMessage result = null;
@@ -61,7 +60,6 @@ namespace EIS.API.Controllers
             Response.Content = new StringContent(Convert.ToBase64String(b));
             Response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
             return Response;
-
         }
     }
 }

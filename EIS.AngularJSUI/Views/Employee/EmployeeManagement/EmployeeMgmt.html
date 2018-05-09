@@ -64,7 +64,7 @@
             <tbody>
                 <!--<tr class="info" ng-repeat="emp in Emps | filter: search | orderBy: Key: AscOrDesc">-->
                 <tr class="info" dir-paginate="emp in Emps | filter: search | orderBy: Key: AscOrDesc | itemsPerPage: 20">
-                    <td><a href="#/EmployeeProfile/{{emp.EmployeeId}}">{{emp.EmployeeId}}</a></td>
+                    <td><a href="#!/EmployeeProfile/{{emp.EmployeeId}}">{{emp.EmployeeId}}</a></td>
                     <td>{{emp.Email}}</td>
                     <td>{{emp.FirstName}} {{emp.LastName}}</td>
                     <td>{{emp.Contact}}</td>

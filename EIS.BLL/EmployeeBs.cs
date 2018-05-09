@@ -72,11 +72,11 @@ namespace EIS.BLL
             if (emp != null)
             {
                 string subject = "Your Login Credentials On EIS";
-                string body = "User Name : " + emp.Email + "\n" +
-                             "Password : " + emp.Password + "\n" +
-                             "Login Here : http://localhost:49971/EIS.html#/Login" + "\n" +
-                             "Regards," + "\n" +
-                             "https://bootsnipp.com/";
+                string body =    "User Name : " + emp.Email + "\n" +
+                                 "Password : " + emp.Password + "\n" +
+                                 "Login Here : http://localhost:49971/EIS.html#/Login" + "\n" +
+                                 "Regards," + "\n" +
+                                 "https://bootsnipp.com/";
                 Utility.SendEmail(emp.Email, subject, body);
             }
             return emp;
@@ -111,7 +111,6 @@ namespace EIS.BLL
 
         public bool IsValidOnUpdate(Employee emp)
         {
-
             //Total Exp should be greater than Relevant Exp
             var TotalExpValue = emp.TotalExp;
             var RelevantExpValue = emp.RelevantExp;
