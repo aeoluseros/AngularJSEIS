@@ -121,14 +121,15 @@
                 <div class="tab-pane fade " id="Pic">
                     <div class="well">
                         <div class="form-horizontal">
-                            <div class="form-group">
-
+                            <div class="form-group" >
                                 <div class="col-md-offset-0 col-md-4">
                                     <img src="data:image/jpeg;base64,{{image}}" height="186" width="186">
                                     <input type="file" class="form-control" file-model="myFile" />
-                                    <input type="button" class="btn btn-primary" ng-click="UploadFile()" value="Save" />
+                                    <br />
+                                    <div class="">
+                                        <input type="button" class="btn btn-primary" ng-click="UploadFile()" ng-disabled="!myFile" value="Upload" />
+                                    </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>

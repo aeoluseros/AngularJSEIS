@@ -3,7 +3,15 @@
     $("#wrapper").toggleClass("active");
 });
 
-var appEIS = angular.module('appEIS', ['ngRoute','angularUtils.directives.dirPagination']);
+var appEIS = angular.module('appEIS', ['ngRoute','angularUtils.directives.dirPagination', 'ngCookies']);
+
+//run function get calld whenever I run the application
+appEIS.run(function ($rootScope, $cookies, $http) {
+    if ($cookies.get("Auth") == null) {
+        $cookies.put("Auth", "false");
+    }
+    $rootScope.Auth = $cookies.get("Auth");
+});
 
 appEIS.config(function ($routeProvider) {
     $routeProvider.when('/Home', { templateUrl: 'Common/Home/Home.html', controller:'homeController'});
@@ -11,9 +19,32 @@ appEIS.config(function ($routeProvider) {
     $routeProvider.when('/RecoverPassword', { templateUrl: 'Common/RecoverPassword/RecoverPassword.html', controller: 'recoverPasswordController'});
     $routeProvider.when('/EmployeeManagement', { templateUrl: 'Employee/EmployeeManagement/EmployeeMgmt.html', controller: 'employeeMgmtController'});
     $routeProvider.when('/EmployeeProfile/:EmployeeId?', { templateUrl: 'Employee/EmployeeUpdate/EmployeeUpdate.html', controller: 'employeeUpdateController'});
-    $routeProvider.when('/Logout', { });
+    $routeProvider.when('/Logout', {
+        resolve: {
+            auth: function ($rootScope, $location, $cookies) {
+                $cookies.put('Auth', 'false');
+                $rootScope.Auth = $cookies.get('Auth');
+                $cookies.put("EmpSignIn", null);
+                $rootScope.EmpSignIn = $cookies.get("EmpSignIn");
+
+                $location.path('/Login');
+            }
+        }
+    });
     $routeProvider.otherwise({redirectTo: '/Home'});
 });
+
+appEIS.controller("appEISController", function ($scope, $rootScope, $location, $cookies, utilityService) {
+    $rootScope.$on("$routeChangeStart", function (event, next, current) {
+        var Guest = ['/Home', '/RecoverPassword'];
+
+        //$route = $location.url()
+        if ($rootScope.Auth == 'false' && $.inArray(next.$$route.originalPath, Guest) == -1) {
+            $location.path('/Login');
+        }
+    });
+});
+
 
 
 appEIS.directive('fileModel', function ($parse) {
