@@ -38,7 +38,7 @@ appEIS.controller('employeeUpdateController', function ($scope, $routeParams, em
         e.preventDefault();
     })
 
-    $scope.eid = $routeParams.EmployeeId;
+    $scope.eid = $routeParams.EmployeeId || "E0";
 
     employeeUpdateService.getByEid($scope.eid).then(function (result) {
         $scope.Emp = result;
@@ -65,7 +65,7 @@ appEIS.controller('employeeUpdateController', function ($scope, $routeParams, em
         var file = $scope.myFile;
         var uploadUrl = "http://localhost:64776/api/Upload/";
         utilityService.uploadFile(file, uploadUrl, $scope.eid).then(function (response) {
-            $scope.image = response;
+            $scope.image = response;   //the image is encoded into base64 string. so I need to use src="data:image/jpeg;base64,{{image}}" in html.
         });
     };
 
