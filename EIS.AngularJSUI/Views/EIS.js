@@ -5,15 +5,33 @@
 
 var appEIS = angular.module('appEIS', ['ngRoute','angularUtils.directives.dirPagination', 'ngCookies']);
 
+
 //run function get calld whenever I run the application
 appEIS.run(function ($rootScope, $cookies, $http) {
     if ($cookies.get("Auth") == null) {
         $cookies.put("Auth", "false");
     }
     $rootScope.Auth = $cookies.get("Auth");
+    $http.defaults.headers.common['my_Token'] = '123456789'; //TODO: move this token to configuration file and read from C#.
 });
 
-appEIS.config(function ($routeProvider) {
+appEIS.factory('myHttpInterceptor', function ($q, $window) {
+    return {
+        response: function (response) {
+            return response;
+        },
+        responseError: function (response) {
+            if (response.status == 500) {
+                $window.alert(response.statusText);  //display the error message in an alert box.
+                //we could also use $rootScope to carry the message and display on the page.
+            }
+            return $q.reject(response);
+        }
+    };
+});
+
+appEIS.config(function ($routeProvider, $httpProvider) {
+    $httpProvider.interceptor.push('myHttpInterceptor');
     $routeProvider.when('/Home', { templateUrl: 'Common/Home/Home.html', controller:'homeController'});
     $routeProvider.when('/Login', { templateUrl: 'Common/Login/Login.html', controller: 'loginController'});
     $routeProvider.when('/RecoverPassword', { templateUrl: 'Common/RecoverPassword/RecoverPassword.html', controller: 'recoverPasswordController'});
@@ -34,13 +52,35 @@ appEIS.config(function ($routeProvider) {
     $routeProvider.otherwise({redirectTo: '/Home'});
 });
 
+
 appEIS.controller("appEISController", function ($scope, $rootScope, $location, $cookies, utilityService) {
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
         var Guest = ['/Home', '/RecoverPassword'];
+        var User = ['/Home', '/Logout', '/EmployeeProfile/:EmployeeId?'];
+        var Admin = ['/Home', '/Logout', '/EmployeeProfile/:EmployeeId?', '/EmployeeManagement'];
+
 
         //$route = $location.url()
-        if ($rootScope.Auth == 'false' && $.inArray(next.$$route.originalPath, Guest) == -1) {
+        if ($rootScope.Auth == 'false' && next.$$route != null && $.inArray(next.$$route.originalPath, Guest) == -1) {
             $location.path('/Login');
+        } else {
+            if ($cookies.get("EmpSignIn") != null){
+                $rootScope.EmpSignIn = JSON.parse($cookies.get("EmpSignIn"));
+                role = $rootScope.EmpSignIn.Role.RoleCode;
+
+                if (role == 'A' && next.$$route!=null && $.inArray(next.$$route.originalPath, Admin) == -1) {
+                    $location.path('/Home');
+                }
+                else if (role == 'U' && next.$$route != null && $.inArray(next.$$route.originalPath, User) == -1) {
+                    $location.path('/Home');
+                }
+            } else {
+                $location.path('/Home');
+            }
+
+            utilityService.getFile("http://localhost:64776/api/Upload/", $rootScope.EmpSignIn.EmployeeId).then(function (result) {
+                $rootScope.imgSideBar = result;
+            });
         }
     });
 });
@@ -112,7 +152,6 @@ appEIS.factory("utilityService", function ($http) {
 
     return utilityObj;
 })
-
 
 
 

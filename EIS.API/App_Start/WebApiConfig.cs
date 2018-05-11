@@ -20,6 +20,9 @@ namespace EIS.API
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            GlobalConfiguration.Configuration.MessageHandlers.Addd(new APIKeyHandler());
+            config.Filters.Add(new EISExceptionAttribute());
         }
     }
 }
