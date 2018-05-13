@@ -32,7 +32,7 @@ namespace EIS.BLL
             if (IsValidOnInsert(emp))
             {
                 ObjDb.Insert(emp);
-                string subject = "Your Login Credentials On EIS";
+                string subject = "Your Login Credentials On EIS(DO NOT REPLY)";
                 string body = "User Name : " + emp.Email + "\n" +
                              "Password : " + emp.Password + "\n" +
                              "Login Here : http:\\\\www.EIS.manzoorthetrainer.com" + "\n" +
@@ -71,7 +71,7 @@ namespace EIS.BLL
             var emp = ObjDb.GetByEmail(email);
             if (emp != null)
             {
-                string subject = "Your Login Credentials On EIS";
+                string subject = "Your Login Credentials On EIS(DO NOT REPLY)";
                 string body =    "User Name : " + emp.Email + "\n" +
                                  "Password : " + emp.Password + "\n" +
                                  "Login Here : http://localhost:49971/EIS.html#/Login" + "\n" +
@@ -125,5 +125,32 @@ namespace EIS.BLL
             else
                 return false;
         }
+
+        public bool RemindEmployee(string id, string msgStr)
+        {
+            var employee = ObjDb.GetByID(id);
+            if (employee == null)
+            {
+                Errors.Add("Email Id does not exist");
+            }
+            else
+            {
+                string subject = "Admin - Alert";
+                string body = msgStr + "\n" +
+                              "Regards, " + "\n" +
+                              "www.aeoluseros.com";
+                Utility.SendEmail(employee.Email, subject, body);
+            }
+
+            if (Errors.Count() == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }

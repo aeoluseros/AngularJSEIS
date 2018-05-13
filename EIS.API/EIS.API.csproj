@@ -94,15 +94,18 @@
   <ItemGroup>
     <Content Include="Files\ProfilePics\anonymous.jpg" />
     <Content Include="Files\ProfilePics\E0.jpeg" />
+    <Content Include="Files\log.txt" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIKeyHandler.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="EISExceptionAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -119,6 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Files\BulkData\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

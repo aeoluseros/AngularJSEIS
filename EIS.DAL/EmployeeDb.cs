@@ -39,7 +39,7 @@ namespace EIS.DAL
 
         public Employee GetByEmail(string email)
         {
-            return db.Employees.Where(x => x.Email == email).FirstOrDefault();
+            return db.Employees.Where(x => x.Email == email).Include("Role").FirstOrDefault();
         }
 
         public void Save()

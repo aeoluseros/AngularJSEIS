@@ -33,12 +33,12 @@
 
 
 
-appEIS.controller('employeeUpdateController', function ($scope, $routeParams, employeeUpdateService, utilityService) {
+appEIS.controller('employeeUpdateController', function ($scope, $routeParams, employeeUpdateService, utilityService, $rootScope) {
     $('#profilePanel a').click(function (e) {
         e.preventDefault();
     })
 
-    $scope.eid = $routeParams.EmployeeId || "E0";
+    $scope.eid = $routeParams.EmployeeId || $rootScope.EmpSignIn.EmployeeId;
 
     employeeUpdateService.getByEid($scope.eid).then(function (result) {
         $scope.Emp = result;

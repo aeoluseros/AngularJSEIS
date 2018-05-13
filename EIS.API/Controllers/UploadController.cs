@@ -20,6 +20,21 @@ namespace EIS.API.Controllers
             var httpRequest = HttpContext.Current.Request;
             if (httpRequest.Files.Count > 0)
             {
+                var postedFile = httpRequest.Files[0];  //only read the first file.
+                var filePath = "";
+                if (postedFile.ContentType == "application/vnd.ms-excel" || 
+                    postedFile.ContentType == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+                    filePath = HttpContext.Current.Server.MapPath("~/Files/BulkData/" + postedFile.FileName);
+                    postedFile.SaveAs(filePath);
+                    return Request.CreateResponse(HttpStatusCode.Created, postedFile.FileName);
+                }
+                else
+                {
+                    filePath = HttpContext.Current.Server.MapPath("~/Files/ProfilePics/" + Id + ".jpeg");
+                    postedFile.SaveAs(filePath);
+                    return GetFile(Id);
+                }
+                /*
                 var docfiles = new List<string>();
                 foreach (string file in httpRequest.Files)
                 {
@@ -30,13 +45,13 @@ namespace EIS.API.Controllers
                     docfiles.Add(filePath);
                 }
                 result = Request.CreateResponse(HttpStatusCode.Created, docfiles);
+                */
             }
             else
             {
                 result = Request.CreateResponse(HttpStatusCode.BadRequest);
                 return result;
             }
-            return GetFile(Id); ;
         }
 
         public HttpResponseMessage Get(string Id)
@@ -61,6 +76,7 @@ namespace EIS.API.Controllers
             Response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
             return Response;
         }
+
     }
 }
 

@@ -81,6 +81,7 @@
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\jquery-1.11.1.min.map" />
+    <Content Include="Views\Employee\EmployeeManagement\EmployeeList.xls" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -881,8 +882,8 @@
     <Content Include="Views\Common\Login\login.js" />
     <Content Include="Views\Common\RecoverPassword\RecoverPassword.html" />
     <Content Include="Views\Common\RecoverPassword\recoverPassword.js" />
-    <Content Include="Views\EIS.html" />
-    <Content Include="Views\EIS.js" />
+    <Content Include="EIS.html" />
+    <Content Include="EIS.js" />
     <Content Include="Views\Employee\EmployeeManagement\EmployeeMgmt.html" />
     <Content Include="Views\Employee\EmployeeManagement\employeeMgmt.js" />
     <Content Include="Views\Employee\EmployeeUpdate\EmployeeUpdate.html" />
@@ -908,7 +909,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49235</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/EIS.AngularJSUI</IISUrl>
+          <IISUrl>http://localhost:8000</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

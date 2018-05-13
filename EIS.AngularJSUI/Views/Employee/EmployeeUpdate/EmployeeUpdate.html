@@ -1,8 +1,15 @@
-﻿<div ng-show="Emp==null">
+﻿<div id="alert" class="alert alert-success" ng-show="Flg">
+    {{Msg}}
+</div>
+<div ng-show="Emp==null">
     <h2>Record Does Not Exist</h2>
     <br />
 </div>
-<form name="updateEmployeeForm" novalidaete ng-show="Emp!=null">
+<div ng-show="(Emp!=null && EmpSignIn.Role.RoleCode=='U' && Emp.EmployeeId!=EmpSignIn.EmployeeId)">
+    <h1>Access Denied</h1>
+</div>
+
+<form name="updateEmployeeForm" novalidaete ng-show="Emp!=null && (EmpSignIn.Role.RoleCode=='A'|| Emp.EmployeeId==EmpSignIn.EmployeeId)">
     <div id="profilePanel" class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">Profile Details</h3>

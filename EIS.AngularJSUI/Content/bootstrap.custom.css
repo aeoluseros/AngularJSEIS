@@ -10,14 +10,14 @@
 }
 
 #sidebar-wrapper {
-    margin-left: -150px;
+    margin-left: -160px;
     left: 0px;
-    width: 220px;
+    width: 230px;
     background: #222;
     position: fixed;
     height: 100%;
     z-index: 10000;
-    transition: all .4s ease 0s;
+    transition: all .5s ease 0s;
 }
 
 .sidebar-nav {
@@ -37,7 +37,7 @@
 }
 
 #wrapper.active {
-    padding-left: 220px;
+    padding-left: 230px;
 }
 
     #wrapper.active #sidebar-wrapper {
@@ -53,7 +53,7 @@
     display: block;
     float: left;
     text-decoration: none;
-    width: 220px;
+    width: 230px;
     background: #252525;
     border-top: 1px solid #373737;
     border-bottom: 1px solid #1A1A1A;
