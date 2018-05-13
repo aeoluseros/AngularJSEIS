@@ -3,7 +3,7 @@
     $("#wrapper").toggleClass("active");
 });
 
-var appEIS = angular.module('appEIS', ['ngRoute','angularUtils.directives.dirPagination', 'ngCookies']);
+var appEIS = angular.module('appEIS', ['ngRoute', 'angularUtils.directives.dirPagination', 'ngCookies','angular-loading-bar']);
 
 
 //run function get calld whenever I run the application
@@ -30,13 +30,13 @@ appEIS.factory('myHttpInterceptor', function ($q, $window) {
     };
 });
 
-appEIS.config(function ($routeProvider, $httpProvider) {
-    $httpProvider.interceptor.push('myHttpInterceptor');
-    $routeProvider.when('/Home', { templateUrl: 'Common/Home/Home.html', controller:'homeController'});
-    $routeProvider.when('/Login', { templateUrl: 'Common/Login/Login.html', controller: 'loginController'});
-    $routeProvider.when('/RecoverPassword', { templateUrl: 'Common/RecoverPassword/RecoverPassword.html', controller: 'recoverPasswordController'});
-    $routeProvider.when('/EmployeeManagement', { templateUrl: 'Employee/EmployeeManagement/EmployeeMgmt.html', controller: 'employeeMgmtController'});
-    $routeProvider.when('/EmployeeProfile/:EmployeeId?', { templateUrl: 'Employee/EmployeeUpdate/EmployeeUpdate.html', controller: 'employeeUpdateController'});
+appEIS.config(function ($routeProvider, $httpProvider, $locationProvider) {
+    $httpProvider.interceptors.push('myHttpInterceptor');
+    $routeProvider.when('/Home', { templateUrl: 'Views/Common/Home/Home.html', controller:'homeController'});
+    $routeProvider.when('/Login', { templateUrl: 'Views/Common/Login/Login.html', controller: 'loginController'});
+    $routeProvider.when('/RecoverPassword', { templateUrl: 'Views/Common/RecoverPassword/RecoverPassword.html', controller: 'recoverPasswordController'});
+    $routeProvider.when('/EmployeeManagement', { templateUrl: 'Views/Employee/EmployeeManagement/EmployeeMgmt.html', controller: 'employeeMgmtController'});
+    $routeProvider.when('/EmployeeProfile/:EmployeeId?', { templateUrl: 'Views/Employee/EmployeeUpdate/EmployeeUpdate.html', controller: 'employeeUpdateController'});
     $routeProvider.when('/Logout', {
         resolve: {
             auth: function ($rootScope, $location, $cookies) {
@@ -49,7 +49,8 @@ appEIS.config(function ($routeProvider, $httpProvider) {
             }
         }
     });
-    $routeProvider.otherwise({redirectTo: '/Home'});
+    $routeProvider.otherwise({ redirectTo: '/Home' });
+    $locationProvider.html5Mode(true);
 });
 
 
@@ -66,21 +67,26 @@ appEIS.controller("appEISController", function ($scope, $rootScope, $location, $
         } else {
             if ($cookies.get("EmpSignIn") != null){
                 $rootScope.EmpSignIn = JSON.parse($cookies.get("EmpSignIn"));
-                role = $rootScope.EmpSignIn.Role.RoleCode;
 
-                if (role == 'A' && next.$$route!=null && $.inArray(next.$$route.originalPath, Admin) == -1) {
-                    $location.path('/Home');
+                if ($rootScope.EmpSignIn!=null){
+                    role = $rootScope.EmpSignIn.Role.RoleCode;
+
+                    if (role == 'A' && next.$$route!=null && $.inArray(next.$$route.originalPath, Admin) == -1) {
+                        $location.path('/Home');
+                    }
+                    else if (role == 'U' && next.$$route != null && $.inArray(next.$$route.originalPath, User) == -1) {
+                        $location.path('/Home');
+                    }
+
+
+                    utilityService.getFile("http://localhost:64776/api/Upload/", $rootScope.EmpSignIn.EmployeeId).then(function (result) {
+                        $rootScope.imgSideBar = result;
+                    });
                 }
-                else if (role == 'U' && next.$$route != null && $.inArray(next.$$route.originalPath, User) == -1) {
-                    $location.path('/Home');
-                }
+
             } else {
                 $location.path('/Home');
             }
-
-            utilityService.getFile("http://localhost:64776/api/Upload/", $rootScope.EmpSignIn.EmployeeId).then(function (result) {
-                $rootScope.imgSideBar = result;
-            });
         }
     });
 });

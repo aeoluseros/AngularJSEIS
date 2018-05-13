@@ -29,6 +29,12 @@ namespace EIS.API
                 actionExecutedContext.Response = actionExecutedContext.Request
                     .CreateErrorResponse(HttpStatusCode.BadGateway, actionExecutedContext.ActionContext.ModelState);
             }
+            else if(actionExecutedContext.Exception.GetType() == typeof(System.Net.Mail.SmtpException))
+            {
+                actionExecutedContext.ActionContext.ModelState.AddModelError("", "Unable to send Email.");
+                actionExecutedContext.Response = actionExecutedContext.Request
+                    .CreateErrorResponse(HttpStatusCode.GatewayTimeout, actionExecutedContext.ActionContext.ModelState);
+            }
             else {
                 actionExecutedContext.Response = actionExecutedContext.Request
                     .CreateErrorResponse(HttpStatusCode.InternalServerError, actionExecutedContext.Exception);

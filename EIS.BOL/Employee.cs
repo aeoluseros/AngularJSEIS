@@ -60,7 +60,7 @@ namespace EIS.BOL
 
         public Employee()
         {
-            //Password = RandomString(10);
+            Password = RandomString(10);
             CreatedDate = DateTime.UtcNow;
             RoleId = 2;
         }

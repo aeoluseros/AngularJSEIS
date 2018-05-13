@@ -21,7 +21,7 @@ namespace EIS.API
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            GlobalConfiguration.Configuration.MessageHandlers.Addd(new APIKeyHandler());
+            GlobalConfiguration.Configuration.MessageHandlers.Add(new APIKeyHandler());
             config.Filters.Add(new EISExceptionAttribute());
         }
     }
